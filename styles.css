@@ -1,11 +1,11 @@
-/* Chai Practice — styled to match chaiandconversation.com.
+/* Chai Practice: styled to match chaiandconversation.com.
    Flat, solid colour blocks (navy / blue / cream / yellow / aqua), no patterns,
    no gradients. Chunky rounded buttons in plain yellow or white with bold dark
    text. Bold sans-serif headings. White cards with navy borders.
    Phone-first (≤480px primary). System fonts only, no external requests. */
 
 :root {
-  --navy: #211f3f;        /* dark navy — top band, strong text */
+  --navy: #211f3f;        /* dark navy (top band, strong text) */
   --blue: #5670b4;        /* hero blue */
   --blue-deep: #3c529b;   /* card borders, links */
   --cream: #fdf1e0;       /* page background */

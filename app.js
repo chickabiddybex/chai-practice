@@ -1,4 +1,4 @@
-/* Chai Practice — demo app engine.
+/* Chai Practice: demo app engine.
    Plain JS, no dependencies. State in localStorage. Data from data.js (CHAI_DATA). */
 
 'use strict';
@@ -20,7 +20,7 @@ const PRAISE = [
 /* ---------------- state ---------------- */
 
 const defaultState = () => ({
-  scriptMode: 'phonetic',    // 'phonetic' | 'both' | 'script' — how Persian words are shown
+  scriptMode: 'phonetic',    // 'phonetic' | 'both' | 'script': how Persian words are shown
   lessonMax: 10,
   streak: 0,
   lastFilled: null,          // 'YYYY-MM-DD' of last day the cup was filled
@@ -43,7 +43,7 @@ function loadState() {
       delete s.script;
       return s;
     }
-  } catch (e) { /* corrupted state — start fresh */ }
+  } catch (e) { /* corrupted state, start fresh */ }
   return defaultState();
 }
 function save() { localStorage.setItem('chai-practice', JSON.stringify(S)); }
@@ -76,8 +76,8 @@ function vocabPool() { return CHAI_DATA.vocab.filter(v => v.lesson <= S.lessonMa
 function box(id) { return (S.words[id] && S.words[id].box) || 0; }
 function setBox(id, b) { S.words[id] = { box: Math.max(0, Math.min(2, b)) }; save(); }
 
-/* A word only advances if it wasn't missed earlier this session —
-   a lucky or corrected guess shouldn't count as mastery. */
+/* A word only advances if it wasn't missed earlier this session.
+   A lucky or corrected guess shouldn't count as mastery. */
 function markResult(id, correct) {
   if (!correct) {
     if (SESSION) SESSION.missed.add(id);
@@ -102,13 +102,13 @@ const stripDiacritics = s => s.toLowerCase()
 const glossCore = s => s.toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim();
 
 /* Two words whose English glosses match or contain each other could both be right
-   answers (merci / mamnoon-am are both "thank you") — never in the same option set. */
+   answers (merci / mamnoon-am are both "thank you"). Keep them out of the same option set. */
 function sameMeaning(a, b) {
   const x = glossCore(a.english), y = glossCore(b.english);
   return !x || !y || x === y || x.includes(y) || y.includes(x);
 }
 
-/* Loanwords (piāno, shokolāt…) leak the answer in MC — route them to non-MC games. */
+/* Loanwords (piāno, shokolāt…) leak the answer in MC, so route them to non-MC games. */
 function isCognate(v) {
   const p = stripDiacritics(v.phonetic).replace(/[^a-z]/g, '');
   const e = v.english.toLowerCase().replace(/[^a-z]/g, '');
@@ -130,7 +130,7 @@ function formMatch(key, cand, side) {
   const tc = side === 'en' ? cand.english : cand.phonetic;
   const ck = coreGloss(tk), cc = coreGloss(tc);
   if (/\?/.test(tk) !== /\?/.test(tc)) return false;
-  // a lone bracketed clarifier is a visual tell — all options carry one, or none do
+  // a lone bracketed clarifier is a visual tell, so all options carry one, or none do
   if (clarifierRe.test(tk) !== clarifierRe.test(tc)) return false;
   if ((ck.split(/\s+/).length > 1) !== (cc.split(/\s+/).length > 1)) return false;
   if (hasNumber(key.english) !== hasNumber(cand.english)) return false;
@@ -152,7 +152,7 @@ function looseMatch(key, cand, side) {
    same-topic (same-lesson) ones are harder. hard=false → new-word mode.
    Distractors must differ in meaning from the key AND from each other
    (two options both meaning "how are you?" is as broken as an echoed key).
-   Filters relax in tiers — full form match, then loose match — never to random. */
+   Filters relax in tiers (full form match, then loose match), never to random. */
 function pickDistractors(key, n, side, hard) {
   const pool = vocabPool().filter(x => x.id !== key.id && !sameMeaning(x, key));
   const tiers = [
@@ -228,11 +228,11 @@ function renderHome() {
   fill.setAttribute('y', 94 - h);
   fill.setAttribute('height', h);
 
-  $('#cupHeadline').textContent = pct >= 100 ? 'Your cup is full — nooshé jān!' : "Today's cup";
+  $('#cupHeadline').textContent = pct >= 100 ? 'Your cup is full: nooshé jān!' : "Today's cup";
   $('#cupSub').textContent =
     pct >= 100 ? 'Come back tomorrow to keep the samovar going.' :
-    pct === 0 ? 'Your estekān is empty — time to brew.' :
-    `${pct}% brewed — keep pouring.`;
+    pct === 0 ? 'Your estekān is empty. Time to brew.' :
+    `${pct}% brewed. Keep pouring.`;
 
   $('#statStreak').textContent = `🔥 ${S.streak}-day streak`;
   $('#statGhand').textContent = `🍬 ${S.ghand} ghand`;
@@ -246,7 +246,7 @@ function renderHome() {
     CHAI_DATA.lessons.forEach(l => {
       const o = document.createElement('option');
       o.value = l.lesson;
-      o.textContent = `Lesson ${l.lesson} — ${l.title.length > 34 ? l.title.slice(0, 34) + '…' : l.title}`;
+      o.textContent = `Lesson ${l.lesson}: ${l.title.length > 34 ? l.title.slice(0, 34) + '…' : l.title}`;
       sel.appendChild(o);
     });
   }
@@ -330,8 +330,8 @@ function endSession() {
       ? `nooshé jān! ${scriptShown() ? '<span class="fa">نوش جان</span>' : ''}`
       : `${esc(praise.ph)} ${scriptShown() ? `<span class="fa">${praise.fa}</span>` : ''}`}</h2>
     <p>${filledNow
-      ? 'May it nourish your soul — your cup is full for today.'
-      : perfect ? 'A perfect round — have a ghand with your chai. 🍬' : 'Good work — the tricky words will come back around.'}</p>
+      ? 'May it nourish your soul. Your cup is full for today.'
+      : perfect ? 'A perfect round: have a ghand with your chai. 🍬' : 'Good work. The tricky words will come back around.'}</p>
     <div class="results-stats">
       <span>✅ ${s.correct}</span>
       ${s.wrong ? `<span>❌ ${s.wrong}</span>` : ''}
@@ -346,7 +346,7 @@ function endSession() {
   SESSION = null;
 }
 
-/* nooshé jān delight — a shower of ghand (sugar cubes) over the results card.
+/* nooshé jān delight: a shower of ghand (sugar cubes) over the results card.
    Purely presentational; touches no game state. */
 function sugarShower(card) {
   const layer = document.createElement('div');
@@ -419,7 +419,7 @@ function qChoiceFaEn(v) {
       prompt: wordHTML(v, 'fa'),
       options: [{ html: esc(v.english), correct: true }]
         .concat(distract.map(d => ({ html: esc(d.english), correct: false }))),
-      reveal: `${revealWord(v)} means “${esc(v.english)}” — it'll come back around.`,
+      reveal: `${revealWord(v)} means “${esc(v.english)}”. It'll come back around.`,
       onMark: c => markResult(v.id, c),
     })(body, done);
   };
@@ -477,7 +477,7 @@ function qComprehension() {
 }
 
 /* Letter Spotter distractors follow the research: a letter the learner has already
-   got right gets SAME-SHAPE-FAMILY distractors (differ only by dots — the real
+   got right gets SAME-SHAPE-FAMILY distractors (differ only by dots, the real
    confusions); a first-exposure letter gets visually distinct ones. */
 function letterStats(ch) { return S.letters[ch] || { r: 0, w: 0 }; }
 function markLetter(ch, correct) {
@@ -513,7 +513,7 @@ function qLetter() {
     return mcStep({
       kicker: 'What sound does this letter make?',
       prompt: `<span class="fa letter-big">${l.letter}</span>`,
-      // no name shown — the Persian letter names (té, zé, seen…) telegraph the sound
+      // no name shown: the Persian letter names (té, zé, seen…) telegraph the sound
       options: [{ html: esc(l.sound), correct: true }]
         .concat(distract.map(d => ({ html: esc(d.sound), correct: false }))),
       reveal: `<span class="fa">${l.letter}</span> (${esc(l.name)}) makes the sound ${esc(l.sound)}. ${esc(l.note)}`,
@@ -529,7 +529,7 @@ function qLetter() {
       prompt: `Which letter makes the sound<br>“${esc(l.sound)}”?`,
       options: [{ html: `<span class="fa letter-big">${l.letter}</span>`, correct: true }]
         .concat(distract.map(d => ({ html: `<span class="fa letter-big">${d.letter}</span>`, correct: false }))),
-      reveal: `It's <span class="fa">${l.letter}</span> — “${esc(l.name)}”. ${esc(l.note)}`,
+      reveal: `It's <span class="fa">${l.letter}</span>: “${esc(l.name)}”. ${esc(l.note)}`,
       onMark: c => markLetter(l.letter, c),
     });
   }
@@ -560,8 +560,8 @@ function qLetter() {
   return mcStep({
     kicker: 'Read the word',
     prompt: `<span class="fa letter-big">${esc(w.script)}</span>`,
-    options: [{ html: `${esc(w.phonetic)} — ${esc(w.english)}`, correct: true }]
-      .concat(distract.map(d => ({ html: `${esc(d.phonetic)} — ${esc(d.english)}`, correct: false }))),
+    options: [{ html: `${esc(w.phonetic)}: ${esc(w.english)}`, correct: true }]
+      .concat(distract.map(d => ({ html: `${esc(d.phonetic)}: ${esc(d.english)}`, correct: false }))),
     reveal: `<span class="fa">${esc(w.script)}</span> reads <strong>${esc(w.phonetic)}</strong> (${esc(w.english)}).`,
   });
 }
@@ -680,14 +680,14 @@ function startDaily() {
   words.forEach((v, i) => {
     if (scriptShown() && i % 4 === 3) { const q = qLetter(); if (q) { steps.push(q); return; } }
     if (i % 3 === 2) { const q = qComprehension(); if (q) { steps.push(q); return; } }
-    // loanwords leak in MC (piāno/piano) — practise them as flashcards instead
+    // loanwords leak in MC (piāno/piano), so practise them as flashcards instead
     if (isCognate(v)) { steps.push(flashStep(v)); return; }
     steps.push(i % 2 ? qChoiceEnFa(v) : qChoiceFaEn(v));
   });
   startSession('daily', steps.slice(0, DAILY_LEN), { pours: true, hasNew: anyNew(words) });
 }
 
-/* Unit 1 Exercises — quiz every item of an exercise as multiple choice, with the
+/* Unit 1 Exercises: quiz every item of an exercise as multiple choice, with the
    wrong options drawn from the other answers in the same exercise. */
 function runExercise(ex) {
   const answers = ex.items.map(it => it.a);
@@ -748,9 +748,9 @@ document.querySelectorAll('#scriptModes .seg').forEach(btn => {
       b.classList.toggle('active', b.dataset.mode === S.scriptMode));
     $('#tileLetters').classList.toggle('locked', !scriptShown());
     toast(
-      S.scriptMode === 'phonetic' ? 'Speaking mode — phonetic Persian only.' :
-      S.scriptMode === 'both'     ? 'Phonetic + Persian script — Letter Spotter unlocked ✍️' :
-                                    'Persian script only — khosh āmadeed to the alphabet! ✍️'
+      S.scriptMode === 'phonetic' ? 'Speaking mode: phonetic Persian only.' :
+      S.scriptMode === 'both'     ? 'Phonetic + Persian script: Letter Spotter unlocked ✍️' :
+                                    'Persian script only: khosh āmadeed to the alphabet! ✍️'
     );
   };
 });
@@ -767,7 +767,7 @@ document.querySelectorAll('details[data-section]').forEach(d => {
 });
 
 $('#btnReset').onclick = () => {
-  if (confirm('Reset ALL progress — streak, ghand and word progress? This cannot be undone.')) {
+  if (confirm('Reset ALL progress: streak, ghand and word progress? This cannot be undone.')) {
     localStorage.removeItem('chai-practice');
     S = defaultState();
     renderHome();
