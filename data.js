@@ -3153,6 +3153,7 @@ const CHAI_DATA = {
    "name": "Exercise Two",
    "desc": "Write phrases in reduced form",
    "kicker": "Choose the reduced form",
+   "reduced": true,
    "items": [
     {
      "q": "esmé man sārā hast.",

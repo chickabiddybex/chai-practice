@@ -186,21 +186,30 @@ function sessionWantsHard(v) {
   return box(v.id) >= 1; // review words get the harder distractor set
 }
 
-function wordHTML(v, side) {
-  // side: 'fa' (Persian) or 'en'
+/* Drops a leading optional subject pronoun — "(tō) ", "(man) ", "(shomā) " — that
+   the course writes in brackets to show it can be left out. Flashcards keep it as a
+   teaching detail; the quick games show the shorter spoken form. */
+const dropLeadPronoun = s => s.replace(/^\s*\([^)]*\)\s*/, '');
+
+function wordHTML(v, side, spoken) {
+  // side: 'fa' (Persian) or 'en'; spoken: strip the bracketed optional pronoun
   if (side === 'en') return esc(v.english);
-  if (S.scriptMode === 'script') return `<span class="fa">${esc(v.script)}</span>`;
-  let h = esc(v.phonetic);
-  if (S.scriptMode === 'both') h += ` <span class="fa">${esc(v.script)}</span>`;
+  const ph = spoken ? dropLeadPronoun(v.phonetic) : v.phonetic;
+  const sc = spoken ? dropLeadPronoun(v.script) : v.script;
+  if (S.scriptMode === 'script') return `<span class="fa">${esc(sc)}</span>`;
+  let h = esc(ph);
+  if (S.scriptMode === 'both') h += ` <span class="fa">${esc(sc)}</span>`;
   return h;
 }
 
 /* Answer-explanation form of a word. Always keeps the romanized spelling as a
    safety net; in Script-only mode it leads with the Persian glyph. */
-function revealWord(v) {
+function revealWord(v, spoken) {
+  const ph = spoken ? dropLeadPronoun(v.phonetic) : v.phonetic;
+  const sc = spoken ? dropLeadPronoun(v.script) : v.script;
   return S.scriptMode === 'script'
-    ? `<span class="fa">${esc(v.script)}</span> (<strong>${esc(v.phonetic)}</strong>)`
-    : `<strong>${esc(v.phonetic)}</strong>`;
+    ? `<span class="fa">${esc(sc)}</span> (<strong>${esc(ph)}</strong>)`
+    : `<strong>${esc(ph)}</strong>`;
 }
 
 function toast(msg) {
@@ -416,10 +425,10 @@ function qChoiceFaEn(v) {
     const distract = pickDistractors(v, 2, 'en', sessionWantsHard(v));
     mcStep({
       kicker: 'What does this mean?',
-      prompt: wordHTML(v, 'fa'),
+      prompt: wordHTML(v, 'fa', true),
       options: [{ html: esc(v.english), correct: true }]
         .concat(distract.map(d => ({ html: esc(d.english), correct: false }))),
-      reveal: `${revealWord(v)} means “${esc(v.english)}”. It'll come back around.`,
+      reveal: `${revealWord(v, true)} means “${esc(v.english)}”. It'll come back around.`,
       onMark: c => markResult(v.id, c),
     })(body, done);
   };
@@ -431,9 +440,9 @@ function qChoiceEnFa(v) {
     mcStep({
       kicker: 'How do you say…',
       prompt: `“${esc(v.english)}”`,
-      options: [{ html: wordHTML(v, 'fa'), correct: true }]
-        .concat(distract.map(d => ({ html: wordHTML(d, 'fa'), correct: false }))),
-      reveal: `“${esc(v.english)}” is ${revealWord(v)}.`,
+      options: [{ html: wordHTML(v, 'fa', true), correct: true }]
+        .concat(distract.map(d => ({ html: wordHTML(d, 'fa', true), correct: false }))),
+      reveal: `“${esc(v.english)}” is ${revealWord(v, true)}.`,
       onMark: c => markResult(v.id, c),
     })(body, done);
   };
@@ -614,7 +623,7 @@ function pairsStep(words) {
     let selected = null, matched = 0, misses = 0;
     const tiles = shuffle(
       words.flatMap(v => [
-        { id: v.id, side: 'fa', html: wordHTML(v, 'fa') },
+        { id: v.id, side: 'fa', html: wordHTML(v, 'fa', true) },
         { id: v.id, side: 'en', html: esc(v.english) },
       ])
     );
@@ -687,17 +696,33 @@ function startDaily() {
   startSession('daily', steps.slice(0, DAILY_LEN), { pours: true, hasNew: anyNew(words) });
 }
 
-/* Unit 1 Exercises: quiz every item of an exercise as multiple choice, with the
-   wrong options drawn from the other answers in the same exercise. */
+/* Swaps the reduced ending of "ast" between its two forms: "-é" (after a consonant)
+   and "-st" (after a vowel). Used to build the wrong option in the reduced-form
+   exercise, keeping the same name so only the ending differs. */
+function swapReducedEnding(a) {
+  if (a.endsWith('-st.')) return a.slice(0, -4) + '-é.';
+  if (a.endsWith('-é.'))  return a.slice(0, -3) + '-st.';
+  if (a.endsWith('-st'))  return a.slice(0, -3) + '-é';
+  if (a.endsWith('-é'))   return a.slice(0, -2) + '-st';
+  return a;
+}
+
+/* Unit 1 Exercises: quiz every item of an exercise as multiple choice. Wrong
+   options are usually drawn from the other answers in the same exercise; the
+   reduced-form exercise instead offers the same name with the other ending. */
 function runExercise(ex) {
   const answers = ex.items.map(it => it.a);
   const steps = shuffle(ex.items.slice()).map(it => {
-    const distract = sample(answers.filter(a => a !== it.a), 2);
+    const options = ex.reduced
+      ? [{ html: esc(it.a), correct: true },
+         { html: esc(swapReducedEnding(it.a)), correct: false }]
+      : [{ html: esc(it.a), correct: true }]
+          .concat(sample(answers.filter(a => a !== it.a), 2)
+            .map(d => ({ html: esc(d), correct: false })));
     return mcStep({
       kicker: ex.kicker,
       prompt: esc(it.q),
-      options: [{ html: esc(it.a), correct: true }]
-        .concat(distract.map(d => ({ html: esc(d), correct: false }))),
+      options,
       reveal: `The answer is <strong>${esc(it.a)}</strong>.`,
     });
   });
