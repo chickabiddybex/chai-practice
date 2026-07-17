@@ -283,9 +283,24 @@ function renderHome() {
 
 let SESSION = null;
 
+/* Title + subtitle shown in the hero band while an activity is running. Free-play
+   games take theirs from the clicked tile (PENDING_META); the daily lesson uses
+   this map; exercises pass their own via opts.meta. */
+const SESSION_META = {
+  daily: { title: "Today's Persian Lesson", subtitle: 'Your daily mixed practice' },
+};
+let PENDING_META = null;
+
 function startSession(kind, steps, opts = {}) {
+  const meta = opts.meta || PENDING_META || SESSION_META[kind] || {};
+  PENDING_META = null;
+  const title = meta.title || 'Chai Practice';
+  const subtitle = meta.subtitle || '';
+  $('#sessionTitle').textContent = title;
+  $('#sessionSubtitle').textContent = subtitle;
   SESSION = {
     kind, steps, i: 0, correct: 0, wrong: 0,
+    title, subtitle,
     pours: opts.pours || false,
     hasNew: opts.hasNew !== false,   // ghand only for sessions with unmastered words
     missed: new Set(),
@@ -350,6 +365,8 @@ function endSession() {
     <button class="btn btn-primary btn-big" id="btnHome">Back to the samovar</button>
   `;
   $('#btnHome').onclick = renderHome;
+  $('#resultsTitle').textContent = s.title || 'Chai Practice';
+  $('#resultsSubtitle').textContent = s.subtitle || '';
   show('#screen-results');
   if (filledNow) sugarShower(card);
   SESSION = null;
@@ -726,7 +743,7 @@ function runExercise(ex) {
       reveal: `The answer is <strong>${esc(it.a)}</strong>.`,
     });
   });
-  startSession('exercise', steps, { hasNew: false });
+  startSession('exercise', steps, { hasNew: false, meta: { title: ex.name, subtitle: ex.desc } });
 }
 
 const GAMES = {
@@ -760,7 +777,16 @@ const GAMES = {
 /* ---------------- wiring ---------------- */
 
 $('#btnDaily').onclick = startDaily;
-document.querySelectorAll('.game-tile').forEach(b => { b.onclick = () => GAMES[b.dataset.game](); });
+document.querySelectorAll('.game-tile').forEach(b => {
+  b.onclick = () => {
+    PENDING_META = {
+      title: b.querySelector('.gt-name')?.textContent || '',
+      subtitle: b.querySelector('.gt-desc')?.textContent || '',
+    };
+    GAMES[b.dataset.game]();
+    PENDING_META = null;
+  };
+});
 
 $('#btnQuit').onclick = () => {
   if (!SESSION || confirm('Leave this session? Your poured tea is safe.')) { SESSION = null; renderHome(); }
@@ -783,13 +809,25 @@ document.querySelectorAll('#scriptModes .seg').forEach(btn => {
 $('#lessonMax').onchange = e => { S.lessonMax = +e.target.value; save(); renderHome(); };
 
 /* remember which home sections are open/collapsed (kept separate from
-   chai-practice state so "Reset all progress" doesn't undo layout choices) */
+   chai-practice state so "Reset all progress" doesn't undo layout choices).
+   On desktop the sections are always expanded and can't be collapsed, so we
+   don't save toggles there (keeps the phone's collapse choices intact). */
+const DESKTOP_MQ = window.matchMedia('(min-width: 900px)');
 document.querySelectorAll('details[data-section]').forEach(d => {
   const key = 'chai-section-' + d.dataset.section;
   const saved = localStorage.getItem(key);
   if (saved !== null) d.open = saved === '1';
-  d.addEventListener('toggle', () => localStorage.setItem(key, d.open ? '1' : '0'));
+  d.addEventListener('toggle', () => { if (!DESKTOP_MQ.matches) localStorage.setItem(key, d.open ? '1' : '0'); });
 });
+function syncDesktopSections() {
+  document.querySelectorAll('#screen-home details[data-section]').forEach(d => {
+    if (DESKTOP_MQ.matches) { d.open = true; return; }
+    const saved = localStorage.getItem('chai-section-' + d.dataset.section);
+    d.open = saved === null ? true : saved === '1';
+  });
+}
+DESKTOP_MQ.addEventListener('change', syncDesktopSections);
+syncDesktopSections();
 
 $('#btnReset').onclick = () => {
   if (confirm('Reset ALL progress: streak, ghand and word progress? This cannot be undone.')) {
