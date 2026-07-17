@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#211f3f">
 <title>Chai Practice: a Chai and Conversation companion</title>
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫖</text></svg>">
 </head>
 <body>
@@ -14,7 +14,77 @@
 
   <!-- ============ HOME ============ -->
   <section id="screen-home" class="screen">
+
+    <nav class="topbar">
+      <span class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" width="30" height="30">
+            <circle cx="22" cy="22" r="20" fill="none" stroke="#fff" stroke-width="2"/>
+            <path d="M16 15 q-3 9 2 15 q4 3 8 0 q5 -6 2 -15 z" fill="none" stroke="#fff" stroke-width="1.7"/>
+            <ellipse cx="22" cy="14.6" rx="6" ry="1.9" fill="none" stroke="#fff" stroke-width="1.7"/>
+            <path d="M22 12.8 q-2 -3 0 -5" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 20 q-3.5 1 -3.5 4.2" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M28 20 q3.5 1 3.5 4.2" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">Chai and<br>Conversation</span>
+      </span>
+    </nav>
+
     <header class="home-header">
+      <img class="hero-illo hero-illo-left" src="img/illo-woman.png" alt="" aria-hidden="true">
+      <div class="hero-text">
+        <h1>Chai Practice</h1>
+        <p class="tagline">A daily cup of Persian practice, brewed from your<br><strong>Chai&nbsp;and&nbsp;Conversation</strong> lessons</p>
+      </div>
+      <img class="hero-illo hero-illo-right" src="img/illo-welcome.png" alt="" aria-hidden="true">
+    </header>
+
+    <div class="cup-card">
+      <div class="estekan-wrap">
+        <svg viewBox="0 0 90 110" class="estekan" aria-hidden="true">
+          <defs>
+            <clipPath id="glassClip"><path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z"/></clipPath>
+            <linearGradient id="teaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c96a2a"/>
+              <stop offset="1" stop-color="#7c3410"/>
+            </linearGradient>
+            <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#a86f14"/>
+              <stop offset=".5" stop-color="#f0c869"/>
+              <stop offset="1" stop-color="#a86f14"/>
+            </linearGradient>
+          </defs>
+          <!-- saucer -->
+          <ellipse cx="45" cy="103" rx="35" ry="6.5" fill="var(--tea-dark)" opacity=".15"/>
+          <ellipse cx="45" cy="101" rx="35" ry="6.5" fill="#f6e9cf"/>
+          <ellipse cx="45" cy="100" rx="35" ry="6.5" fill="url(#goldRim)"/>
+          <ellipse cx="45" cy="99.5" rx="27" ry="4.6" fill="#fbf3e3"/>
+          <ellipse cx="45" cy="99.5" rx="18" ry="3" fill="none" stroke="var(--brass)" stroke-width="1" opacity=".5"/>
+          <!-- glass tint -->
+          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z" fill="#eef6f5" opacity=".55"/>
+          <!-- tea + glass highlights (clipped to glass) -->
+          <g clip-path="url(#glassClip)">
+            <rect id="teaFill" x="10" y="94" width="70" height="94" fill="url(#teaGrad)"/>
+            <rect x="24" y="0" width="7" height="110" fill="#fff" opacity=".4"/>
+            <rect x="34" y="0" width="3" height="110" fill="#fff" opacity=".22"/>
+          </g>
+          <!-- outline -->
+          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z"
+                fill="none" stroke="var(--tea-dark)" stroke-width="2.4" opacity=".55"/>
+          <!-- gold rim -->
+          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="url(#goldRim)" stroke-width="3.2"/>
+          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="var(--tea-dark)" stroke-width=".8" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="cup-info">
+        <h2 id="cupHeadline">Today's cup</h2>
+        <p id="cupSub">Your estekān is empty. Time to brew.</p>
+        <div class="statline">
+          <span id="statStreak" title="Days in a row you filled your cup">🔥 0-day streak</span>
+          <span id="statGhand" title="Sugar cubes earned with perfect rounds">🍬 0 ghand</span>
+        </div>
+      </div>
       <div class="samovar-wrap" aria-hidden="true">
         <svg viewBox="0 0 120 150" class="samovar">
           <defs>
@@ -69,72 +139,25 @@
           <path d="M60 9 q-3 -5 1 -9 q3 -4 0 -8" stroke="var(--ink-soft)" stroke-width="2" fill="none" stroke-linecap="round" class="steam s2"/>
         </svg>
       </div>
-      <h1>Chai Practice</h1>
-      <p class="tagline">A daily cup of Persian practice, brewed from your<br><strong>Chai&nbsp;and&nbsp;Conversation</strong> lessons</p>
-    </header>
-
-    <div class="cup-card">
-      <div class="estekan-wrap">
-        <svg viewBox="0 0 90 110" class="estekan" aria-hidden="true">
-          <defs>
-            <clipPath id="glassClip"><path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z"/></clipPath>
-            <linearGradient id="teaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#c96a2a"/>
-              <stop offset="1" stop-color="#7c3410"/>
-            </linearGradient>
-            <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#a86f14"/>
-              <stop offset=".5" stop-color="#f0c869"/>
-              <stop offset="1" stop-color="#a86f14"/>
-            </linearGradient>
-          </defs>
-          <!-- saucer -->
-          <ellipse cx="45" cy="103" rx="35" ry="6.5" fill="var(--tea-dark)" opacity=".15"/>
-          <ellipse cx="45" cy="101" rx="35" ry="6.5" fill="#f6e9cf"/>
-          <ellipse cx="45" cy="100" rx="35" ry="6.5" fill="url(#goldRim)"/>
-          <ellipse cx="45" cy="99.5" rx="27" ry="4.6" fill="#fbf3e3"/>
-          <ellipse cx="45" cy="99.5" rx="18" ry="3" fill="none" stroke="var(--brass)" stroke-width="1" opacity=".5"/>
-          <!-- glass tint -->
-          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z" fill="#eef6f5" opacity=".55"/>
-          <!-- tea + glass highlights (clipped to glass) -->
-          <g clip-path="url(#glassClip)">
-            <rect id="teaFill" x="10" y="94" width="70" height="94" fill="url(#teaGrad)"/>
-            <rect x="24" y="0" width="7" height="110" fill="#fff" opacity=".4"/>
-            <rect x="34" y="0" width="3" height="110" fill="#fff" opacity=".22"/>
-          </g>
-          <!-- outline -->
-          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z"
-                fill="none" stroke="var(--tea-dark)" stroke-width="2.4" opacity=".55"/>
-          <!-- gold rim -->
-          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="url(#goldRim)" stroke-width="3.2"/>
-          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="var(--tea-dark)" stroke-width=".8" opacity=".4"/>
-        </svg>
-      </div>
-      <div class="cup-info">
-        <h2 id="cupHeadline">Today's cup</h2>
-        <p id="cupSub">Your estekān is empty. Time to brew.</p>
-        <div class="statline">
-          <span id="statStreak" title="Days in a row you filled your cup">🔥 0-day streak</span>
-          <span id="statGhand" title="Sugar cubes earned with perfect rounds">🍬 0 ghand</span>
-        </div>
-      </div>
     </div>
 
     <button class="btn btn-primary btn-big" id="btnDaily">☕ Today's Persian Lesson</button>
 
-    <details class="game-menu" data-section="freeplay" open>
-      <summary><h3>Free play</h3></summary>
-      <button class="game-tile" data-game="choice"><span class="gt-emoji">✅</span><span class="gt-name">Multiple choice</span><span class="gt-desc">Persian ↔ English, quick fire</span></button>
-      <button class="game-tile" data-game="pairs"><span class="gt-emoji">🀄</span><span class="gt-name">Match the pairs</span><span class="gt-desc">Beat the clock</span></button>
-      <button class="game-tile" data-game="dialogue"><span class="gt-emoji">💬</span><span class="gt-name">Conversation</span><span class="gt-desc">Read a chat, answer questions</span></button>
-      <button class="game-tile" data-game="flashcards"><span class="gt-emoji">🃏</span><span class="gt-name">Flashcards</span><span class="gt-desc">Swipe through words you're learning</span></button>
-      <button class="game-tile" data-game="letters" id="tileLetters"><span class="gt-emoji">✍️</span><span class="gt-name">Letter spotter</span><span class="gt-desc">Learn to read Persian script</span></button>
-    </details>
+    <div class="menus">
+      <details class="game-menu" data-section="freeplay" open>
+        <summary><h3>Free play</h3></summary>
+        <button class="game-tile" data-game="choice"><span class="gt-emoji">✅</span><span class="gt-name">Multiple choice</span><span class="gt-desc">Persian ↔ English, quick fire</span></button>
+        <button class="game-tile" data-game="pairs"><span class="gt-emoji">🀄</span><span class="gt-name">Match the pairs</span><span class="gt-desc">Beat the clock</span></button>
+        <button class="game-tile" data-game="dialogue"><span class="gt-emoji">💬</span><span class="gt-name">Conversation</span><span class="gt-desc">Read a chat, answer questions</span></button>
+        <button class="game-tile" data-game="flashcards"><span class="gt-emoji">🃏</span><span class="gt-name">Flashcards</span><span class="gt-desc">Swipe through words you're learning</span></button>
+        <button class="game-tile" data-game="letters" id="tileLetters"><span class="gt-emoji">✍️</span><span class="gt-name">Letter spotter</span><span class="gt-desc">Learn to read Persian script</span></button>
+      </details>
 
-    <details class="game-menu" id="exerciseMenu" data-section="exercises" open>
-      <summary><h3>Unit 1 Exercises</h3></summary>
-      <div id="exerciseTiles"></div>
-    </details>
+      <details class="game-menu" id="exerciseMenu" data-section="exercises" open>
+        <summary><h3>Unit 1 Exercises</h3></summary>
+        <div id="exerciseTiles"></div>
+      </details>
+    </div>
 
     <details class="settings-card" data-section="settings" open>
       <summary><h3>Settings</h3></summary>
