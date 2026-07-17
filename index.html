@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#211f3f">
+<title>Chai Practice — a Chai and Conversation companion</title>
+<link rel="stylesheet" href="styles.css?v=10">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫖</text></svg>">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="screen-home" class="screen">
+    <header class="home-header">
+      <div class="samovar-wrap" aria-hidden="true">
+        <svg viewBox="0 0 120 150" class="samovar">
+          <defs>
+            <linearGradient id="brassH" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8a5a10"/>
+              <stop offset=".28" stop-color="#f0c869"/>
+              <stop offset=".52" stop-color="#d99a2b"/>
+              <stop offset=".8" stop-color="#a86f14"/>
+              <stop offset="1" stop-color="#7c4e08"/>
+            </linearGradient>
+            <linearGradient id="brassV" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f0c869"/>
+              <stop offset="1" stop-color="#b7811b"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="60" cy="145" rx="30" ry="4.5" fill="var(--tea-dark)" opacity=".2"/>
+          <!-- pedestal -->
+          <rect x="46" y="131" width="28" height="8" rx="3" fill="#a86f14"/>
+          <path d="M51 121 h18 l5 11 h-28 z" fill="url(#brassH)"/>
+          <rect x="43" y="116" width="34" height="7" rx="3.5" fill="#8a5a10"/>
+          <!-- body -->
+          <path d="M37 60 q-7 32 7 52 q16 11 32 0 q14 -20 7 -52 q-5 -11 -23 -11 q-18 0 -23 11 z" fill="url(#brassH)"/>
+          <!-- sheen -->
+          <path d="M45 62 q-6 28 3 47" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".28"/>
+          <!-- decorative bands + boteh -->
+          <path d="M33 72 q27 9 54 0" fill="none" stroke="#7c4e08" stroke-width="1.4" opacity=".45"/>
+          <ellipse cx="60" cy="92" rx="26" ry="6" fill="#7c4e08" opacity=".16"/>
+          <circle cx="60" cy="84" r="3.2" fill="#7c4e08" opacity=".18"/>
+          <!-- handles -->
+          <path d="M35 76 q-13 3 -13 15 q0 9 10 12" fill="none" stroke="#8a5a10" stroke-width="5" stroke-linecap="round"/>
+          <path d="M85 76 q13 3 13 15 q0 9 -10 12" fill="none" stroke="#8a5a10" stroke-width="5" stroke-linecap="round"/>
+          <!-- spigot / tap -->
+          <rect x="57" y="101" width="7" height="9" rx="2" fill="#8a5a10"/>
+          <path d="M60 108 h15 q4 0 4 4 v2 q0 3 -3 3 h-4 l-2 6 q-1 2.5 -3 0 l-2 -6 h-2 z" fill="#a86f14"/>
+          <circle cx="72" cy="104" r="3.4" fill="#d99a2b" stroke="#7c4e08" stroke-width="1"/>
+          <rect x="70.6" y="97" width="2.8" height="7" rx="1.4" fill="#7c4e08"/>
+          <!-- shoulder + neck -->
+          <ellipse cx="60" cy="52" rx="24" ry="7" fill="url(#brassV)"/>
+          <rect x="43" y="44" width="34" height="10" rx="4" fill="#a86f14"/>
+          <ellipse cx="60" cy="44" rx="17" ry="4.5" fill="#d99a2b"/>
+          <!-- teapot (qoori) resting on top -->
+          <ellipse cx="60" cy="42" rx="13" ry="3.5" fill="var(--tea-dark)" opacity=".22"/>
+          <path d="M35 30 q-3 1 -4 4 q5 1 9 0 z" fill="#a86f14"/>
+          <ellipse cx="60" cy="32" rx="15" ry="9" fill="url(#brassH)"/>
+          <path d="M46 30 q14 6 28 0" fill="none" stroke="#7c4e08" stroke-width="1.2" opacity=".4"/>
+          <path d="M74 27 q7 1 6 8" fill="none" stroke="#8a5a10" stroke-width="3.5" stroke-linecap="round"/>
+          <ellipse cx="60" cy="24" rx="11" ry="3.5" fill="#a86f14"/>
+          <path d="M51 24 q3 -8 9 -8 q6 0 9 8 z" fill="url(#brassV)"/>
+          <circle cx="60" cy="13" r="3" fill="#8a5a10"/>
+          <!-- steam -->
+          <path d="M34 24 q-3 -6 2 -10 q4 -4 1 -9" stroke="var(--ink-soft)" stroke-width="2" fill="none" stroke-linecap="round" class="steam s1"/>
+          <path d="M60 9 q-3 -5 1 -9 q3 -4 0 -8" stroke="var(--ink-soft)" stroke-width="2" fill="none" stroke-linecap="round" class="steam s2"/>
+        </svg>
+      </div>
+      <h1>Chai Practice</h1>
+      <p class="tagline">A daily cup of Persian, brewed from your<br><strong>Chai&nbsp;and&nbsp;Conversation</strong> lessons</p>
+    </header>
+
+    <div class="cup-card">
+      <div class="estekan-wrap">
+        <svg viewBox="0 0 90 110" class="estekan" aria-hidden="true">
+          <defs>
+            <clipPath id="glassClip"><path d="M20 12 h50 l-4 34 q-3 12 -10 18 q7 6 9 20 l1 10 h-42 l1 -10 q2 -14 9 -20 q-7 -6 -10 -18 z"/></clipPath>
+            <linearGradient id="teaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c96a2a"/>
+              <stop offset="1" stop-color="#7c3410"/>
+            </linearGradient>
+            <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#a86f14"/>
+              <stop offset=".5" stop-color="#f0c869"/>
+              <stop offset="1" stop-color="#a86f14"/>
+            </linearGradient>
+          </defs>
+          <!-- saucer -->
+          <ellipse cx="45" cy="103" rx="35" ry="6.5" fill="var(--tea-dark)" opacity=".15"/>
+          <ellipse cx="45" cy="101" rx="35" ry="6.5" fill="#f6e9cf"/>
+          <ellipse cx="45" cy="100" rx="35" ry="6.5" fill="url(#goldRim)"/>
+          <ellipse cx="45" cy="99.5" rx="27" ry="4.6" fill="#fbf3e3"/>
+          <ellipse cx="45" cy="99.5" rx="18" ry="3" fill="none" stroke="var(--brass)" stroke-width="1" opacity=".5"/>
+          <!-- glass tint -->
+          <path d="M20 12 h50 l-4 34 q-3 12 -10 18 q7 6 9 20 l1 10 h-42 l1 -10 q2 -14 9 -20 q-7 -6 -10 -18 z" fill="#eef6f5" opacity=".55"/>
+          <!-- tea + glass highlights (clipped to glass) -->
+          <g clip-path="url(#glassClip)">
+            <rect id="teaFill" x="10" y="94" width="70" height="94" fill="url(#teaGrad)"/>
+            <rect x="24" y="0" width="7" height="110" fill="#fff" opacity=".4"/>
+            <rect x="34" y="0" width="3" height="110" fill="#fff" opacity=".22"/>
+          </g>
+          <!-- outline -->
+          <path d="M20 12 h50 l-4 34 q-3 12 -10 18 q7 6 9 20 l1 10 h-42 l1 -10 q2 -14 9 -20 q-7 -6 -10 -18 z"
+                fill="none" stroke="var(--tea-dark)" stroke-width="2.4" opacity=".55"/>
+          <!-- gold rim -->
+          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="url(#goldRim)" stroke-width="3.2"/>
+          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="var(--tea-dark)" stroke-width=".8" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="cup-info">
+        <h2 id="cupHeadline">Today's cup</h2>
+        <p id="cupSub">Your estekān is empty — time to brew.</p>
+        <div class="statline">
+          <span id="statStreak" title="Days in a row you filled your cup">🔥 0-day streak</span>
+          <span id="statGhand" title="Sugar cubes earned with perfect rounds">🍬 0 ghand</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-big" id="btnDaily">☕ Today's Persian Lesson</button>
+
+    <details class="game-menu" data-section="freeplay" open>
+      <summary><h3>Free play</h3></summary>
+      <button class="game-tile" data-game="flashcards"><span class="gt-emoji">🃏</span><span class="gt-name">Flashcards</span><span class="gt-desc">Swipe through words you're learning</span></button>
+      <button class="game-tile" data-game="choice"><span class="gt-emoji">✅</span><span class="gt-name">Multiple choice</span><span class="gt-desc">Persian ↔ English, quick fire</span></button>
+      <button class="game-tile" data-game="pairs"><span class="gt-emoji">🀄</span><span class="gt-name">Match the pairs</span><span class="gt-desc">Beat the clock</span></button>
+      <button class="game-tile" data-game="dialogue"><span class="gt-emoji">💬</span><span class="gt-name">Conversation</span><span class="gt-desc">Read a chat, answer questions</span></button>
+      <button class="game-tile" data-game="letters" id="tileLetters"><span class="gt-emoji">✍️</span><span class="gt-name">Letter spotter</span><span class="gt-desc">Learn to read Persian script</span></button>
+    </details>
+
+    <details class="game-menu" id="exerciseMenu" data-section="exercises" open>
+      <summary><h3>Unit 1 Exercises</h3></summary>
+      <div id="exerciseTiles"></div>
+    </details>
+
+    <details class="settings-card" data-section="settings" open>
+      <summary><h3>Settings</h3></summary>
+      <div class="setting-row setting-col">
+        <span><strong>Persian script</strong><br><small>Choose how Persian words appear. “Both” or “Script” also unlocks Letter Spotter — learn to speak first and bring the alphabet in when you're ready.</small></span>
+        <div class="segmented" id="scriptModes" role="group" aria-label="How Persian words appear">
+          <button type="button" class="seg" data-mode="phonetic">Phonetic</button>
+          <button type="button" class="seg" data-mode="both">Both</button>
+          <button type="button" class="seg" data-mode="script">Script</button>
+        </div>
+      </div>
+      <label class="setting-row">
+        <span><strong>I'm up to lesson…</strong><br><small>Questions only use words the course has taught you.</small></span>
+        <select id="lessonMax"></select>
+      </label>
+      <button class="btn btn-ghost" id="btnReset">Reset all progress</button>
+    </details>
+
+    <footer class="disclaimer">
+      Demo built with content from <a href="https://www.chaiandconversation.com" target="_blank" rel="noopener">Chai and Conversation</a> (Speak Persian, Unit 1).
+      A concept prototype — not an official Chai and Conversation product.
+    </footer>
+  </section>
+
+  <!-- ============ SESSION (shared by daily cup + all games) ============ -->
+  <section id="screen-session" class="screen hidden">
+    <header class="session-header">
+      <button class="btn-close" id="btnQuit" aria-label="Quit session">✕</button>
+      <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
+      <div class="mini-estekan" id="miniCup" aria-hidden="true">☕</div>
+    </header>
+    <div id="sessionBody" class="session-body"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="screen-results" class="screen hidden">
+    <div class="results-card" id="resultsCard"></div>
+  </section>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="data.js?v=5"></script>
+<script src="app.js?v=9"></script>
+</body>
+</html>
