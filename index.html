@@ -5,17 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#211f3f">
 <title>Chai Practice: a Chai and Conversation companion</title>
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫖</text></svg>">
 </head>
 <body>
 
 <div id="app">
 
-  <!-- ============ HOME ============ -->
-  <section id="screen-home" class="screen">
-
-    <nav class="topbar">
+  <nav class="topbar">
       <span class="brand">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 44 44" width="30" height="30">
@@ -30,6 +27,9 @@
         <span class="brand-name">Chai and<br>Conversation</span>
       </span>
     </nav>
+
+  <!-- ============ HOME ============ -->
+  <section id="screen-home" class="screen">
 
     <header class="home-header">
       <img class="hero-illo hero-illo-left" src="img/illo-woman.png" alt="" aria-hidden="true">
@@ -184,16 +184,38 @@
 
   <!-- ============ SESSION (shared by daily cup + all games) ============ -->
   <section id="screen-session" class="screen hidden">
-    <header class="session-header">
-      <button class="btn-close" id="btnQuit" aria-label="Quit session">✕</button>
-      <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
-      <div class="mini-estekan" id="miniCup" aria-hidden="true">☕</div>
+    <header class="home-header page-hero">
+      <div class="hero-text">
+        <h1 id="sessionTitle">Chai Practice</h1>
+        <p class="tagline" id="sessionSubtitle"></p>
+      </div>
     </header>
-    <div id="sessionBody" class="session-body"></div>
+    <div class="session-stage">
+      <div class="bubble-illo" aria-hidden="true">
+        <svg viewBox="0 0 100 112" width="88" height="98">
+          <path d="M50 4 C74 4 96 10 96 40 C96 66 80 78 56 80 L41 106 L38 79 C16 74 6 60 6 40 C6 12 26 4 50 4 Z" fill="var(--blue-deep)"/>
+          <rect x="43" y="26" width="13" height="33" rx="6.5" fill="#fff"/>
+          <circle cx="49.5" cy="70" r="7" fill="#fff"/>
+        </svg>
+      </div>
+      <header class="session-header">
+        <button class="btn-close" id="btnQuit" aria-label="Quit session">✕</button>
+        <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
+        <div class="mini-estekan" id="miniCup" aria-hidden="true">☕</div>
+      </header>
+      <div id="sessionBody" class="session-body"></div>
+      <img class="stage-illo" src="img/illo-pour.png" alt="" aria-hidden="true">
+    </div>
   </section>
 
   <!-- ============ RESULTS ============ -->
   <section id="screen-results" class="screen hidden">
+    <header class="home-header page-hero">
+      <div class="hero-text">
+        <h1 id="resultsTitle">Chai Practice</h1>
+        <p class="tagline" id="resultsSubtitle"></p>
+      </div>
+    </header>
     <div class="results-card" id="resultsCard"></div>
   </section>
 
@@ -202,6 +224,6 @@
 <div id="toast" class="toast hidden"></div>
 
 <script src="data.js?v=5"></script>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
