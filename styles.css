@@ -80,7 +80,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: .2px; color: var(--navy); }
   padding: 28px 20px 26px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.home-header h1 { font-size: 2.1rem; color: #fff; }
+.home-header h1 { font-size: 2.6rem; color: #fff; }
 .tagline { color: #fff; opacity: .92; font-size: .92rem; margin-top: 4px; }
 .tagline strong { color: var(--yellow); }
 /* the two round illustrations only appear once there's room (desktop) */
@@ -405,8 +405,8 @@ details:not([open]) > summary { margin-bottom: 0; }
 
   /* hero: illustration | title | illustration */
   .home-header { flex-direction: row; justify-content: center; align-items: center; gap: 5%; padding: 26px 40px; }
-  .hero-text { max-width: 360px; }
-  .home-header h1 { font-size: 2.5rem; }
+  .hero-text { max-width: 400px; }
+  .home-header h1 { font-size: 3.3rem; }
   .tagline { font-size: 1rem; }
   .hero-illo { display: block; width: 220px; height: auto; flex-shrink: 0; }
 
@@ -422,10 +422,11 @@ details:not([open]) > summary { margin-bottom: 0; }
   .menus { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; align-items: start; }
   .game-menu { margin: 24px 0 0; }
 
-  /* settings: label left, control right */
+  /* settings: label left, control right — toggle matches the lesson dropdown width */
   .setting-col { flex-direction: row; align-items: center; }
   .setting-col > span { flex: 1; }
-  .segmented { max-width: 460px; width: 460px; margin-left: auto; }
+  .segmented { width: 340px; max-width: 340px; margin-left: auto; }
+  .setting-row select { width: 340px; max-width: 340px; }
 
   /* home sections stay expanded on desktop — no collapsing */
   #screen-home .game-menu summary, #screen-home .settings-card summary { pointer-events: none; cursor: default; }
@@ -436,7 +437,7 @@ details:not([open]) > summary { margin-bottom: 0; }
 
   /* activity pages: decorative bubble left of the card, bigger illustration below */
   .session-stage { margin-top: 30px; }
-  .bubble-illo { display: block; position: absolute; left: -98px; top: -6px; width: 90px; }
+  .bubble-illo { display: block; position: absolute; left: -96px; top: 0; width: 82px; height: auto; }
   .stage-illo { width: 200px; margin-top: 32px; }
 }
 

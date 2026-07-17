@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#211f3f">
 <title>Chai Practice: a Chai and Conversation companion</title>
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=14">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫖</text></svg>">
 </head>
 <body>
@@ -61,20 +61,22 @@
           <ellipse cx="45" cy="100" rx="35" ry="6.5" fill="url(#goldRim)"/>
           <ellipse cx="45" cy="99.5" rx="27" ry="4.6" fill="#fbf3e3"/>
           <ellipse cx="45" cy="99.5" rx="18" ry="3" fill="none" stroke="var(--brass)" stroke-width="1" opacity=".5"/>
-          <!-- glass tint -->
-          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z" fill="#eef6f5" opacity=".55"/>
-          <!-- tea + glass highlights (clipped to glass) -->
-          <g clip-path="url(#glassClip)">
-            <rect id="teaFill" x="10" y="94" width="70" height="94" fill="url(#teaGrad)"/>
-            <rect x="24" y="0" width="7" height="110" fill="#fff" opacity=".4"/>
-            <rect x="34" y="0" width="3" height="110" fill="#fff" opacity=".22"/>
+          <!-- glass (nudged down so it rests on the saucer) -->
+          <g transform="translate(0,6)">
+            <!-- glass tint -->
+            <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z" fill="#eef6f5" opacity=".55"/>
+            <!-- tea + glass highlights (clipped to glass) -->
+            <g clip-path="url(#glassClip)">
+              <rect id="teaFill" x="10" y="94" width="70" height="94" fill="url(#teaGrad)"/>
+              <rect x="24" y="0" width="7" height="110" fill="#fff" opacity=".4"/>
+              <rect x="34" y="0" width="3" height="110" fill="#fff" opacity=".22"/>
+            </g>
+            <!-- outline (open across the top so no line crosses the rim opening) -->
+            <path d="M70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12"
+                  fill="none" stroke="var(--tea-dark)" stroke-width="2.4" opacity=".55" stroke-linecap="round"/>
+            <!-- gold rim -->
+            <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="url(#goldRim)" stroke-width="3.2"/>
           </g>
-          <!-- outline -->
-          <path d="M20 12 L70 12 C69 27 62 35 61 47 C60 58 71 64 72 74 C72.6 82 66 90 58 94 L32 94 C24 90 17.4 82 18 74 C19 64 30 58 29 47 C28 35 21 27 20 12 Z"
-                fill="none" stroke="var(--tea-dark)" stroke-width="2.4" opacity=".55"/>
-          <!-- gold rim -->
-          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="url(#goldRim)" stroke-width="3.2"/>
-          <ellipse cx="45" cy="12" rx="25" ry="4" fill="none" stroke="var(--tea-dark)" stroke-width=".8" opacity=".4"/>
         </svg>
       </div>
       <div class="cup-info">
@@ -191,13 +193,7 @@
       </div>
     </header>
     <div class="session-stage">
-      <div class="bubble-illo" aria-hidden="true">
-        <svg viewBox="0 0 100 112" width="88" height="98">
-          <path d="M50 4 C74 4 96 10 96 40 C96 66 80 78 56 80 L41 106 L38 79 C16 74 6 60 6 40 C6 12 26 4 50 4 Z" fill="var(--blue-deep)"/>
-          <rect x="43" y="26" width="13" height="33" rx="6.5" fill="#fff"/>
-          <circle cx="49.5" cy="70" r="7" fill="#fff"/>
-        </svg>
-      </div>
+      <img class="bubble-illo" src="img/illo-bang.png" alt="" aria-hidden="true">
       <header class="session-header">
         <button class="btn-close" id="btnQuit" aria-label="Quit session">✕</button>
         <div class="progress-track"><div class="progress-fill" id="sessionProgress"></div></div>
