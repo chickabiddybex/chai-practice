@@ -179,7 +179,7 @@ details:not([open]) > summary { margin-bottom: 0; }
 .gt-name { font-weight: 700; color: var(--navy); }
 .gt-desc { font-size: .82rem; color: var(--ink-soft); }
 .game-tile.locked { opacity: .5; }
-.game-tile.locked .gt-desc::after { content: " (turn on Persian script to unlock)"; }
+.game-tile.locked .gt-desc::after { content: " (turn on script to unlock)"; }
 
 .settings-card {
   background: var(--card); border: var(--border);
