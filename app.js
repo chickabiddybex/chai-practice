@@ -789,7 +789,8 @@ document.querySelectorAll('.game-tile').forEach(b => {
 });
 
 $('#btnQuit').onclick = () => {
-  if (!SESSION || confirm('Leave this session? Your poured tea is safe.')) { SESSION = null; renderHome(); }
+  SESSION = null;
+  renderHome();
 };
 
 document.querySelectorAll('#scriptModes .seg').forEach(btn => {
